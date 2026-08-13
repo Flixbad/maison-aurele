@@ -1,0 +1,5 @@
+# Assets
+
+Placez ici vos images locales (logo, lookbook, portraits).
+
+Pour l’instant, le site utilise des visuels Unsplash haute qualité via `next/image`.
