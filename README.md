@@ -1,14 +1,13 @@
 # Maison Aurèle
 
-Site vitrine premium pour un atelier de coiffure haut de gamme.
+Site vitrine Cut Lab — export statique prêt pour Hostinger mutualisé.
 
 ## Stack
 
-- **Next.js** (App Router) + TypeScript
+- **Next.js** (App Router, `output: "export"`) + TypeScript
 - **Tailwind CSS** v4
-- **Framer Motion** — animations & révélations
-- **Lenis** — smooth scroll
-- Polices : **Bodoni Moda** + **Outfit**
+- **Framer Motion** · **Lenis**
+- Polices : **Syne** · **Space Grotesk** · **IBM Plex Mono**
 
 ## Démarrage
 
@@ -17,20 +16,35 @@ npm install
 npm run dev
 ```
 
-Ouvre [http://localhost:3000](http://localhost:3000).
+## Build Hostinger (`out/`)
+
+```bash
+npm run build
+```
+
+Le dossier **`out/`** contient le site HTML/CSS/JS prêt à uploader.
+
+### Upload Hostinger mutualisé
+
+1. Lance `npm run build`
+2. Ouvre le gestionnaire de fichiers Hostinger (ou FTP)
+3. Va dans `public_html` (ou le sous-dossier de ton domaine)
+4. Envoie **tout le contenu** de `out/` (pas le dossier `out` lui-même)
+5. Vérifie que `.htaccess` est bien présent à la racine
+
+Le site est 100 % statique : pas besoin de Node.js sur l’hébergement.
 
 ## Scripts
 
-| Commande        | Description              |
-|-----------------|--------------------------|
-| `npm run dev`   | Serveur de développement |
-| `npm run build` | Build production         |
-| `npm run start` | Serveur production       |
-| `npm run lint`  | ESLint                   |
+| Commande          | Description                          |
+|-------------------|--------------------------------------|
+| `npm run dev`     | Dev local                            |
+| `npm run build`   | Génère `out/` (export Hostinger)     |
+| `npm run export`  | Alias de `build`                     |
+| `npm run start`   | Prévisualise `out/` en local         |
+| `npm run lint`    | ESLint                               |
 
 ## Contenu éditable
-
-Les textes, tarifs, équipe et médias sont centralisés dans :
 
 ```
 src/data/salon.ts
@@ -39,18 +53,11 @@ src/data/salon.ts
 ## Arborescence
 
 ```
-src/
-  app/           # Layout, page, styles, icon
-  components/    # UI sections
-  data/          # Contenu du salon
-  lib/           # Utilitaires
-assets/          # Médias locaux (optionnel)
-docs/            # Documentation
+src/          # Code source
+public/       # Favicon + .htaccess (copiés dans out/)
+out/          # Build à uploader sur Hostinger
+docs/         # Documentation
 ```
-
-## Design
-
-Direction éditoriale mode : fond encre, accents cuivre, typographie Bodoni, hero full-bleed, catégories Homme / Femme / Couleur / Soins / Événement, carte prestations, lookbook, réservation.
 
 ## Licence
 

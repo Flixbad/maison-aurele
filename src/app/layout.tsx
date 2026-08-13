@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   title: "Maison Aurèle — Cut Lab",
   description:
     "Labo de coupe à Los Santos. Femme, homme, couleur, soins. Formes nettes, énergie brute.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
