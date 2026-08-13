@@ -11,9 +11,8 @@ export function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.25]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
 
   return (
     <section
@@ -30,14 +29,11 @@ export function Hero() {
           className="object-cover object-[center_28%]"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-transparent to-ink/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/20 to-transparent" />
       </motion.div>
 
-      <motion.div
-        style={{ opacity }}
-        className="section-pad relative z-10 w-full pb-16 pt-32 md:pb-24"
-      >
+      <div className="section-pad relative z-10 w-full pb-16 pt-32 md:pb-24">
         <motion.p
           className="mb-5 text-[11px] tracking-[0.35em] text-copper-bright uppercase"
           initial={{ opacity: 0, y: 18 }}
@@ -84,7 +80,7 @@ export function Hero() {
             Découvrir
           </a>
         </motion.div>
-      </motion.div>
+      </div>
 
       <div className="pointer-events-none absolute right-6 bottom-10 hidden text-[10px] tracking-[0.3em] text-parchment-dim uppercase md:block">
         Scroll
