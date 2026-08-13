@@ -1,45 +1,42 @@
-import { philosophy } from "@/data/salon";
+import { manifesto } from "@/data/salon";
 import { Reveal } from "./Reveal";
 
 export function Philosophy() {
   return (
-    <section id="atelier" className="section-pad relative overflow-hidden py-24 md:py-32">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(196,137,90,0.12),transparent_55%)]" />
-
-      <div className="relative grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+    <section id="methode" className="border-b-2 border-void bg-void py-20 text-paper md:py-28">
+      <div className="section-pad grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
-          <p className="mb-3 text-[11px] tracking-[0.3em] text-copper uppercase">
-            L&apos;atelier
+          <p className="mb-2 font-mono text-[11px] tracking-wider text-acid uppercase">
+            // méthode
           </p>
-          <h2 className="font-display text-4xl leading-[1.05] text-parchment md:text-6xl">
-            Moins de tendance.
+          <h2 className="font-display text-4xl font-extrabold tracking-tight md:text-6xl">
+            Trois gestes.
             <br />
-            Plus de vous.
+            Une coupe.
           </h2>
-          <p className="mt-6 max-w-lg text-base leading-relaxed text-parchment-dim md:text-lg">
-            Maison Aurèle n&apos;est pas une chaîne. C&apos;est un atelier où le
-            diagnostic précède le ciseau, où la couleur se construit en
-            conversation, et où chaque client repart avec une silhouette qui lui
-            appartient vraiment.
+          <p className="mt-6 max-w-sm text-paper/70">
+            Pas de discours spa. Un protocole clair — du diagnostic à la
+            sortie, chaque étape a un job.
           </p>
+          <div className="mt-10 inline-flex rotate-[-2deg] border-2 border-acid bg-signal px-4 py-2 font-mono text-xs tracking-wider text-paper uppercase">
+            No fluff / All cut
+          </div>
         </Reveal>
 
-        <div className="relative space-y-0 border-t border-line">
-          {philosophy.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.1}>
-              <div className="border-b border-line py-8">
-                <div className="mb-3 flex items-baseline gap-4">
-                  <span className="font-display text-sm text-copper">
-                    0{i + 1}
-                  </span>
-                  <h3 className="font-display text-2xl text-parchment md:text-3xl">
-                    {item.title}
-                  </h3>
+        <div className="space-y-4">
+          {manifesto.map((step, i) => (
+            <Reveal key={step.n} delay={i * 0.1}>
+              <article className="grid gap-4 border-2 border-paper/20 bg-paper/5 p-5 backdrop-blur-sm md:grid-cols-[100px_1fr] md:p-7">
+                <div className="font-display text-5xl font-extrabold text-acid">
+                  {step.n}
                 </div>
-                <p className="max-w-md pl-10 text-sm leading-relaxed text-parchment-dim md:text-base">
-                  {item.text}
-                </p>
-              </div>
+                <div>
+                  <h3 className="font-display text-2xl font-extrabold tracking-tight md:text-3xl">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-paper/70">{step.text}</p>
+                </div>
+              </article>
             </Reveal>
           ))}
         </div>

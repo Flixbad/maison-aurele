@@ -1,43 +1,43 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Outfit } from "next/font/google";
+import { Space_Grotesk, Syne, IBM_Plex_Mono } from "next/font/google";
 import { CustomCursor } from "@/components/CustomCursor";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import "./globals.css";
 
-const bodoni = Bodoni_Moda({
-  variable: "--font-bodoni",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
   display: "swap",
 });
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const grotesk = Space_Grotesk({
+  variable: "--font-grotesk",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const mono = IBM_Plex_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Maison Aurèle — Haute coiffure",
+  title: "Maison Aurèle — Cut Lab",
   description:
-    "Atelier de coiffure haut de gamme à Los Santos. Coupes femme & homme, couleur, soins et coiffures d'événement.",
-  openGraph: {
-    title: "Maison Aurèle — Haute coiffure",
-    description:
-      "L'art de révéler votre silhouette. Réservez votre rendez-vous.",
-    type: "website",
-  },
+    "Labo de coupe à Los Santos. Femme, homme, couleur, soins. Formes nettes, énergie brute.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`${bodoni.variable} ${outfit.variable} h-full antialiased`}
+      className={`${syne.variable} ${grotesk.variable} ${mono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-ink text-parchment">
+      <body className="min-h-full bg-paper text-void">
         <SmoothScroll>
           <CustomCursor />
-          <div className="grain" aria-hidden />
           {children}
         </SmoothScroll>
       </body>

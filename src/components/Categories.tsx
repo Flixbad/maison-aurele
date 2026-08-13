@@ -1,76 +1,87 @@
 "use client";
 
 import Image from "next/image";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { categories } from "@/data/salon";
 import { Reveal } from "./Reveal";
 
-export function Categories() {
-  return (
-    <section id="categories" className="section-pad relative py-24 md:py-32">
-      <Reveal>
-        <div className="mb-14 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="mb-3 text-[11px] tracking-[0.3em] text-copper uppercase">
-              Univers
-            </p>
-            <h2 className="font-display text-4xl text-parchment md:text-6xl">
-              Cinq ateliers,
-              <br />
-              une signature.
-            </h2>
-          </div>
-          <p className="max-w-sm text-sm leading-relaxed text-parchment-dim md:text-base">
-            Homme, femme, couleur, soins et événements — chaque univers a sa
-            méthode, jamais une formule toute faite.
-          </p>
-        </div>
-      </Reveal>
+const tintMap = {
+  acid: "bg-acid",
+  sky: "bg-sky text-paper",
+  signal: "bg-signal text-paper",
+} as const;
 
-      <div className="grid auto-rows-[minmax(320px,auto)] gap-4 md:grid-cols-6">
-        {categories.map((cat, i) => {
-          const wide = i === 0 || i === 3;
-          return (
-            <Reveal
+export function Categories() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ["start end", "end start"],
+  });
+  const x = useTransform(scrollYProgress, [0.1, 0.9], ["0%", "-45%"]);
+
+  return (
+    <section id="univers" className="overflow-hidden border-b-2 border-void py-20 md:py-28">
+      <div className="section-pad mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <Reveal>
+          <p className="mb-2 font-mono text-[11px] tracking-wider text-mute uppercase">
+            // univers
+          </p>
+          <h2 className="font-display max-w-xl text-4xl font-extrabold tracking-tight md:text-6xl">
+            Cinq zones.
+            <br />
+            Zéro compromis.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p className="max-w-xs text-mute">
+            Scrolle latéralement — chaque carte est un atelier avec son propre
+            rythme.
+          </p>
+        </Reveal>
+      </div>
+
+      <div ref={trackRef} className="relative">
+        <motion.div style={{ x }} className="flex w-max gap-4 px-[clamp(1rem,3.5vw,3.5rem)]">
+          {categories.map((cat, i) => (
+            <a
               key={cat.id}
-              delay={i * 0.08}
-              className={wide ? "md:col-span-4" : "md:col-span-2"}
+              href="#tarifs"
+              data-cursor={cat.label.toUpperCase()}
+              className="group relative block w-[78vw] max-w-[420px] shrink-0 overflow-hidden border-2 border-void bg-paper md:w-[380px]"
             >
-              <a
-                href="#services"
-                data-cursor="hover"
-                className="group relative block h-full min-h-[320px] overflow-hidden bg-ink-lift md:min-h-[380px]"
-              >
+              <div className="relative aspect-[4/5]">
                 <Image
                   src={cat.image}
                   alt={cat.label}
                   fill
-                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                  sizes="400px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent" />
-                <div className="absolute inset-0 bg-copper/0 transition-colors duration-500 group-hover:bg-copper/10" />
-
-                <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
-                  <p className="mb-2 text-[10px] tracking-[0.28em] text-copper-bright uppercase">
-                    {cat.subtitle}
-                  </p>
-                  <h3 className="font-display text-3xl text-parchment md:text-4xl">
-                    {cat.label}
-                  </h3>
-                  <p className="mt-3 max-w-md text-sm text-parchment-dim opacity-90 transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100 md:text-[15px]">
-                    {cat.description}
-                  </p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-[11px] tracking-[0.2em] text-parchment uppercase">
-                    Voir les prestations
-                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </span>
+                <div
+                  className={`absolute top-3 left-3 border-2 border-void px-2 py-1 font-mono text-[10px] tracking-wider uppercase ${tintMap[cat.tint]}`}
+                >
+                  {cat.code}
                 </div>
-              </a>
-            </Reveal>
-          );
-        })}
+              </div>
+              <div className="border-t-2 border-void p-5">
+                <p className="font-mono text-[10px] tracking-wider text-mute uppercase">
+                  {cat.subtitle}
+                </p>
+                <h3 className="font-display mt-1 text-3xl font-extrabold tracking-tight">
+                  {cat.label}
+                </h3>
+                <p className="mt-3 text-sm text-mute">{cat.description}</p>
+                <span className="mt-4 inline-block font-mono text-[11px] tracking-wider uppercase group-hover:text-signal">
+                  → Prestations
+                </span>
+              </div>
+              <span className="pointer-events-none absolute right-3 bottom-24 font-display text-7xl font-extrabold text-void/10">
+                0{i + 1}
+              </span>
+            </a>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

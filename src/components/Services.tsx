@@ -11,68 +11,69 @@ export function Services() {
   const current = services[active];
 
   return (
-    <section id="services" className="section-pad border-t border-line py-24 md:py-32">
-      <Reveal>
-        <div className="mb-12 md:mb-16">
-          <p className="mb-3 text-[11px] tracking-[0.3em] text-copper uppercase">
-            Prestations
-          </p>
-          <h2 className="font-display text-4xl text-parchment md:text-6xl">
-            La carte
-          </h2>
-        </div>
-      </Reveal>
-
-      <div className="grid gap-10 lg:grid-cols-[280px_1fr] lg:gap-16">
+    <section id="tarifs" className="checker border-b-2 border-void py-20 md:py-28">
+      <div className="section-pad">
         <Reveal>
-          <div className="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0">
-            {services.map((group, i) => (
-              <button
-                key={group.category}
-                type="button"
-                onClick={() => setActive(i)}
-                className={cn(
-                  "shrink-0 border px-4 py-3 text-left text-[11px] tracking-[0.22em] uppercase transition-colors",
-                  active === i
-                    ? "border-copper bg-copper/15 text-copper-bright"
-                    : "border-line text-parchment-dim hover:border-line-strong hover:text-parchment",
-                )}
-              >
-                {group.category}
-              </button>
-            ))}
+          <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="mb-2 font-mono text-[11px] tracking-wider text-mute uppercase">
+                // tarifs
+              </p>
+              <h2 className="font-display text-4xl font-extrabold tracking-tight md:text-6xl">
+                La grille
+                <span className="ml-3 bg-acid px-2">brute</span>
+              </h2>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {services.map((g, i) => (
+                <button
+                  key={g.category}
+                  type="button"
+                  onClick={() => setActive(i)}
+                  className={cn(
+                    "border-2 border-void px-4 py-2 font-mono text-[11px] tracking-wider uppercase transition-colors",
+                    active === i
+                      ? "bg-void text-acid"
+                      : "bg-paper hover:bg-sky hover:text-paper",
+                  )}
+                >
+                  {g.category}
+                </button>
+              ))}
+            </div>
           </div>
         </Reveal>
 
-        <Reveal delay={0.1}>
+        <Reveal delay={0.08}>
           <AnimatePresence mode="wait">
             <motion.div
               key={current.category}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="border-t border-line"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.35 }}
+              className="border-2 border-void bg-paper"
             >
-              {current.items.map((item) => (
+              {current.items.map((item, i) => (
                 <div
                   key={item.name}
-                  className="group grid grid-cols-[1fr_auto] items-baseline gap-4 border-b border-line py-6 md:grid-cols-[1fr_auto_auto] md:gap-8"
+                  className={cn(
+                    "grid grid-cols-[auto_1fr_auto] items-center gap-4 px-4 py-5 md:grid-cols-[80px_1fr_auto_auto] md:gap-8 md:px-6",
+                    i !== current.items.length - 1 && "border-b-2 border-void",
+                  )}
                 >
-                  <div>
-                    <h3 className="font-display text-2xl text-parchment transition-colors group-hover:text-copper-bright md:text-3xl">
-                      {item.name}
-                    </h3>
-                    <p className="mt-1 text-xs tracking-wider text-parchment-dim md:hidden">
-                      {item.duration}
-                    </p>
-                  </div>
-                  <p className="hidden text-xs tracking-[0.18em] text-parchment-dim uppercase md:block">
+                  <span className="font-mono text-xs text-mute">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-display text-xl font-extrabold tracking-tight md:text-3xl">
+                    {item.name}
+                  </h3>
+                  <span className="hidden font-mono text-xs tracking-wider text-mute uppercase md:block">
                     {item.duration}
-                  </p>
-                  <p className="font-display text-xl text-copper-bright md:text-2xl">
+                  </span>
+                  <span className="bg-void px-3 py-1 font-display text-lg font-extrabold text-acid md:text-2xl">
                     {item.price}
-                  </p>
+                  </span>
                 </div>
               ))}
             </motion.div>
